@@ -200,6 +200,7 @@ def main():
         x_pos_bg -= game_speed
 
     while run:
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
