@@ -1,5 +1,5 @@
 import pygame
-import os
+import os 
 
 #Global Constants
 SCREEN_HEIGHT = 600
@@ -28,3 +28,4 @@ BIRD = [pygame.image.load(os.path.join("picture/Bird", "Bird1.png")),
 CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 
 BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
+
