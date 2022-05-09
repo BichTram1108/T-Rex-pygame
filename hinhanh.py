@@ -42,4 +42,4 @@ BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
 
 background = pygame.image.load(os.path.join('./picture/background/bg6.jpg'))
 intro_bg = pygame.image.load(os.path.join('./picture/background/bg-anime5.jpg'))
-
+end_bg = pygame.image.load(os.path.join('./picture/background/dino.jpg'))

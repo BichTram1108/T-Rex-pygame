@@ -206,9 +206,9 @@ def introduction():
         TextRect.center=((500),(100))
         SCREEN.blit(TextSurf,TextRect)
         SCREEN.blit(textSurf,textRect)
-        stextSurf,stextRect=text_objects("JUMPING : LEFT TURN",smalltext)
+        stextSurf,stextRect=text_objects(" K_UP : JUMPING",smalltext)
         stextRect.center=((450),(400))
-        hTextSurf,hTextRect=text_objects("DUCKING : RIGHT TURN" ,smalltext)
+        hTextSurf,hTextRect=text_objects(" K_DOWN : DUCKING" ,smalltext)
         hTextRect.center=((450),(450))
         ptextSurf,ptextRect=text_objects("P : PAUSE  ",smalltext)
         ptextRect.center=((450),(350))
@@ -218,7 +218,7 @@ def introduction():
         SCREEN.blit(stextSurf,stextRect)
         SCREEN.blit(hTextSurf,hTextRect)
         SCREEN.blit(ptextSurf,ptextRect)
-        button("BACK",800,450,200,50,red,bright_red,"menu")
+        button("BACK",800,520,200,50,red,bright_red,"menu")
         pygame.display.update()
         clock.tick(30)
 
@@ -242,6 +242,7 @@ def menu(death_count):
             button("QUIT",700,520,100,50,red,bright_red,"quit")
             button("INSTRUCTION",450,520,200,50,blue,bright_blue,"intro")
         elif death_count > 0:
+            SCREEN.blit(end_bg,(0,0))
             text = font.render('Press any Key to restart', True, (0, 0, 0))
             score = font.render('Your Score: ' + str(points), True, (0, 0, 0))
             scoreRect = score.get_rect()
