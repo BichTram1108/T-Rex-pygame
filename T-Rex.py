@@ -55,6 +55,7 @@ class Bird (Obstacle):
 
 def main():
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles
+    global pause
     run = True
     clock = pygame.time.Clock()
     player = Dinosaur()
@@ -95,6 +96,9 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         
+        pause=True
+
+
         SCREEN.fill((255,255,255))
         userInput = pygame.key.get_pressed()
         
@@ -122,11 +126,108 @@ def main():
 
         cloud.draw(SCREEN)
         cloud.update()
+        button("Pause",50,0,150,50,blue,bright_blue,"pause")
 
         score()
 
         clock.tick(30)
         pygame.display.update()
+
+def text_objects(text,font):
+    textsurface=font.render(text,True,black)
+    return textsurface,textsurface.get_rect()
+
+def button(msg,x,y,w,h,ic,ac,action=None):
+    mouse=pygame.mouse.get_pos()
+    click=pygame.mouse.get_pressed()
+    if x+w>mouse[0]>x and y+h>mouse[1]>y:
+        pygame.draw.rect(SCREEN,ac,(x,y,w,h))
+        if click[0]==1 and action!=None:
+            if action=="play":
+                main()
+            elif action=="quit":
+                pygame.quit()
+                quit()
+                sys.exit()
+            elif action=="intro":
+                introduction()
+            elif action=="menu":
+                menu()
+            elif action=="pause":
+                paused()
+            elif action=="unpause":
+                unpaused()
+    else:
+        pygame.draw.rect(SCREEN,ic,(x,y,w,h))
+    smalltext=pygame.font.Font("freesansbold.ttf",20)
+    textsurf,textrect=text_objects(msg,smalltext)
+    textrect.center=((x+(w/2)),(y+(h/2)))
+    SCREEN.blit(textsurf,textrect)
+
+def paused():
+    global pause
+
+    while pause:
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                    sys.exit()
+            SCREEN.blit(background,(0,0))
+            largetext=pygame.font.Font('freesansbold.ttf',115)
+            TextSurf,TextRect=text_objects("PAUSED",largetext)
+            TextRect.center=((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2))
+            SCREEN.blit(TextSurf,TextRect)
+            button("CONTINUE",250,450,150,50,green,bright_green,"unpause")
+            button("RESTART",450,450,150,50,blue,bright_blue,"play")
+            button("MAIN MENU",650,450,200,50,red,bright_red,"menu")
+            pygame.display.update()
+            clock.tick(30)
+
+def unpaused():
+    global pause
+    pause=False
+
+def introduction():
+    introduction=True
+    while introduction:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                quit()
+                sys.exit()
+        SCREEN.blit(intro_bg,(0,0))
+        largetext=pygame.font.Font('freesansbold.ttf',80)
+        smalltext=pygame.font.Font('freesansbold.ttf',20)
+        mediumtext=pygame.font.Font('freesansbold.ttf',40)
+        textSurf,textRect=text_objects("You need to jumping and ducking overcome obstacles to gain more points",smalltext)
+        textRect.center=((550),(200))
+        TextSurf,TextRect=text_objects("INSTRUCTION",largetext)
+        TextRect.center=((500),(100))
+        SCREEN.blit(TextSurf,TextRect)
+        SCREEN.blit(textSurf,textRect)
+        stextSurf,stextRect=text_objects("JUMPING : LEFT TURN",smalltext)
+        stextRect.center=((450),(400))
+        hTextSurf,hTextRect=text_objects("DUCKING : RIGHT TURN" ,smalltext)
+        hTextRect.center=((450),(450))
+        #atextSurf,atextRect=text_objects("A : ACCELERATOR",smalltext)
+        #atextRect.center=((150),(500))
+        #rtextSurf,rtextRect=text_objects("B : BRAKE ",smalltext)
+        #rtextRect.center=((150),(550))
+        ptextSurf,ptextRect=text_objects("P : PAUSE  ",smalltext)
+        ptextRect.center=((450),(350))
+        sTextSurf,sTextRect=text_objects("CONTROLS",mediumtext)
+        sTextRect.center=((500),(250))
+        SCREEN.blit(sTextSurf,sTextRect)
+        SCREEN.blit(stextSurf,stextRect)
+        SCREEN.blit(hTextSurf,hTextRect)
+        #SCREEN.blit(atextSurf,atextRect)
+        #SCREEN.blit(rtextSurf,rtextRect)
+        SCREEN.blit(ptextSurf,ptextRect)
+        button("BACK",800,450,200,50,blue,bright_blue,"menu")
+        pygame.display.update()
+        clock.tick(30)
+
 
 def menu(death_count):
     global points
@@ -136,7 +237,16 @@ def menu(death_count):
         font = pygame.font.Font('freesansbold.ttf', 30)
 
         if death_count == 0:
-            text = font.render('Press any Key to Start', True, (0, 0, 0))
+            SCREEN.blit(background,(0,0))
+            #font1 = pygame.font.Font('freesansbold.ttf',115)
+            #text = font1.render('T-REX', True, black)
+            largetext=pygame.font.Font('freesansbold.ttf',115)
+            text,textRect=text_objects("T-REX",largetext)
+            textRect.center=(400,100)
+            SCREEN.blit(text ,textRect)
+            button("START",300,520,100,50,green,bright_green,"play")
+            button("QUIT",700,520,100,50,red,bright_red,"quit")
+            button("INSTRUCTION",450,520,200,50,blue,bright_blue,"intro")
         elif death_count > 0:
             text = font.render('Press any Key to restart', True, (0, 0, 0))
             score = font.render('Your Score: ' + str(points), True, (0, 0, 0))
