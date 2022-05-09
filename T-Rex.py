@@ -152,7 +152,7 @@ def button(msg,x,y,w,h,ic,ac,action=None):
             elif action=="intro":
                 introduction()
             elif action=="menu":
-                menu()
+                menu(death_count=0)
             elif action=="pause":
                 paused()
             elif action=="unpause":
@@ -210,10 +210,6 @@ def introduction():
         stextRect.center=((450),(400))
         hTextSurf,hTextRect=text_objects("DUCKING : RIGHT TURN" ,smalltext)
         hTextRect.center=((450),(450))
-        #atextSurf,atextRect=text_objects("A : ACCELERATOR",smalltext)
-        #atextRect.center=((150),(500))
-        #rtextSurf,rtextRect=text_objects("B : BRAKE ",smalltext)
-        #rtextRect.center=((150),(550))
         ptextSurf,ptextRect=text_objects("P : PAUSE  ",smalltext)
         ptextRect.center=((450),(350))
         sTextSurf,sTextRect=text_objects("CONTROLS",mediumtext)
@@ -221,10 +217,8 @@ def introduction():
         SCREEN.blit(sTextSurf,sTextRect)
         SCREEN.blit(stextSurf,stextRect)
         SCREEN.blit(hTextSurf,hTextRect)
-        #SCREEN.blit(atextSurf,atextRect)
-        #SCREEN.blit(rtextSurf,rtextRect)
         SCREEN.blit(ptextSurf,ptextRect)
-        button("BACK",800,450,200,50,blue,bright_blue,"menu")
+        button("BACK",800,450,200,50,red,bright_red,"menu")
         pygame.display.update()
         clock.tick(30)
 
