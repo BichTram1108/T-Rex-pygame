@@ -2,6 +2,18 @@ import pygame
 import os 
 
 #Global Constants
+gray=(119,118,110)
+bright_gray = (0,255,0)
+white = (255,255,255)
+black=(0,0,0)
+red=(255,0,0)
+green=(0,200,0)
+blue=(0,0,200)
+bright_red=(255,0,0)
+bright_green=(0,255,0)
+bright_blue=(0,0,255)
+pause=False
+clock = pygame.time.Clock()
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -29,3 +41,7 @@ CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 
 BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
 
+background = pygame.image.load(os.path.join('./picture/background/bg6.jpg'))
+background_2 = pygame.image.load(os.path.join('./picture/background/bg_dino1.jpg'))
+intro_bg = pygame.image.load(os.path.join('./picture/background/bg-anime5.jpg'))
+end_bg = pygame.image.load(os.path.join('./picture/background/dino.jpg'))
