@@ -157,6 +157,8 @@ def button(msg,x,y,w,h,ic,ac,action=None):
                 paused()
             elif action=="unpause":
                 unpaused()
+            elif action == "create_name":
+                create_name()
     else:
         pygame.draw.rect(SCREEN,ic,(x,y,w,h))
     smalltext=pygame.font.Font("freesansbold.ttf",20)
@@ -222,6 +224,59 @@ def introduction():
         pygame.display.update()
         clock.tick(30)
 
+def create_name():
+    create_name = True
+
+    input_rect = pygame.Rect(200, 200, 140, 32)
+    color_active = pygame.Color('lightskyblue3')
+    color_passive = pygame.Color('gray15')
+    color = color_passive
+
+    active = False
+
+
+    while create_name:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if input_rect.collidedict(event.pos):
+                    active = True
+                else:
+                    active = False
+            
+            if event.type == pygame.KEYDOWN:
+                if active == True:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[0:-1]
+                    else:
+                        user_text += event.unicode
+
+        base_font = pygame.font.Font('freesansbold.ttf', 32)
+        user_text = ''
+
+        SCREEN.fill(255, 255, 255)
+
+        if active:
+            color = color_active
+        else:
+            color = color_passive
+
+        pygame.draw.rect(SCREEN, color, input_rect, 2)
+
+        text_surface = base_font.render(user_text, True, (0, 0, 0))
+        SCREEN.blit(text_surface, input_rect.x + 5, input_rect.y + 5)
+
+        input_rect.w = max(100, text_surface.get_width() + 10)
+
+        pygame.display.update()
+        pygame.display.flip()
+        clock.tick(60)
+
+
 
 def menu(death_count):
     global points
@@ -231,16 +286,17 @@ def menu(death_count):
         font = pygame.font.Font('freesansbold.ttf', 30)
 
         if death_count == 0:
-            SCREEN.blit(background,(0,0))
+            SCREEN.blit(background_2,(0,0))
             #font1 = pygame.font.Font('freesansbold.ttf',115)
             #text = font1.render('T-REX', True, black)
             largetext=pygame.font.Font('freesansbold.ttf',115)
             text,textRect=text_objects("T-REX",largetext)
-            textRect.center=(400,100)
+            textRect.center=(550,150)
             SCREEN.blit(text ,textRect)
-            button("START",300,520,100,50,green,bright_green,"play")
-            button("QUIT",700,520,100,50,red,bright_red,"quit")
-            button("INSTRUCTION",450,520,200,50,blue,bright_blue,"intro")
+            button("START",300,450,100,50,green,bright_green,"play")
+            button("QUIT",700,450,100,50,red,bright_red,"quit")
+            button("INSTRUCTION",450,450,200,50,blue,bright_blue,"intro")
+            button("CREATE NAME", 450, 350, 200, 50, gray, bright_gray, "create_name")
         elif death_count > 0:
             SCREEN.blit(end_bg,(0,0))
             text = font.render('Press any Key to restart', True, (0, 0, 0))
@@ -251,8 +307,7 @@ def menu(death_count):
             
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        SCREEN.blit(text, textRect)
-        SCREEN.blit(RUNNING[0], (SCREEN_WIDTH // 2 - 20, SCREEN_HEIGHT // 2 - 140))
+        #SCREEN.blit(text, textRect)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

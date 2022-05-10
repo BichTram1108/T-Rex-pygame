@@ -3,6 +3,7 @@ import os
 
 #Global Constants
 gray=(119,118,110)
+bright_gray = (0,255,0)
 white = (255,255,255)
 black=(0,0,0)
 red=(255,0,0)
@@ -41,5 +42,6 @@ CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
 
 background = pygame.image.load(os.path.join('./picture/background/bg6.jpg'))
+background_2 = pygame.image.load(os.path.join('./picture/background/bg_dino1.jpg'))
 intro_bg = pygame.image.load(os.path.join('./picture/background/bg-anime5.jpg'))
 end_bg = pygame.image.load(os.path.join('./picture/background/dino.jpg'))
