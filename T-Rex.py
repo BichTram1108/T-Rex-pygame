@@ -268,9 +268,9 @@ def create_name():
         pygame.draw.rect(SCREEN, color, input_rect, 2)
 
         text_surface = base_font.render(user_text, True, (0, 0, 0))
-        textRect = text_surface.get_rect()
-        textRect.center((550), (300))
-        SCREEN.blit(text_surface, textRect)
+        #textRect = text_surface.get_rect()
+        #textRect.center(550, 300)
+        SCREEN.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
 
         input_rect.w = max(200, text_surface.get_width() + 10)
 
