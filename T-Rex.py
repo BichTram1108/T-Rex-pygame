@@ -67,7 +67,7 @@ def main():
     font = pygame.font .Font("freesansbold.ttf",20)
     obstacles = []
     death_count = 0
-
+    create_name = True
 
     def score():
         global points, game_speed
@@ -105,6 +105,11 @@ def main():
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
+    text1 = font.render( create_name(), True, red)
+    textRect = text1.get_rect()
+    textRect.center = (800, 40)
+    SCREEN.blit(text1, textRect)
+
     while run:
         
         for event in pygame.event.get():
@@ -112,7 +117,7 @@ def main():
                 run = False
         
         pause=True
-
+        
 
         SCREEN.fill((255,255,255))
         userInput = pygame.key.get_pressed()
@@ -142,7 +147,7 @@ def main():
         cloud.draw(SCREEN)
         cloud.update()
         button("Pause",50,0,150,50,blue,bright_blue,"pause")
-
+        
         score()
         
         clock.tick(30)
@@ -242,9 +247,9 @@ def introduction():
 def create_name():
     create_name = True
 
-    input_rect = pygame.Rect(200, 200, 140, 32)
+    input_rect = pygame.Rect(440, 300, 160, 40)
     color= pygame.Color(43, 31, 216)
-    base_font = pygame.font.Font('freesansbold.ttf', 20)
+    base_font = pygame.font.Font('freesansbold.ttf', 32)
     user_text = ''
 
 
@@ -263,21 +268,21 @@ def create_name():
 
         SCREEN.blit(background,(0,0))
         largetext=pygame.font.Font('freesansbold.ttf',60)
-        smalltext=pygame.font.Font('freesansbold.ttf',20)
+        #smalltext=pygame.font.Font('freesansbold.ttf',20)
         mediumtext=pygame.font.Font('freesansbold.ttf',40)
         
         
-        textSurf,textRect=text_objects("What are your name?",smalltext)
-        textRect.center=((550),(200))
+        textSurf,textRect=text_objects("What are your name?",mediumtext)
+        textRect.center=((550),(230))
         TextSurf,TextRect=text_objects("CREATE TO NAME GAME!",largetext)
-        TextRect.center=((550),(100))
+        TextRect.center=((550),(150))
         SCREEN.blit(TextSurf,TextRect)
         SCREEN.blit(textSurf,textRect)
 
 
         pygame.draw.rect(SCREEN, color, input_rect, 2)
 
-        text_surface = base_font.render(user_text, True, (0, 0, 0))
+        text_surface = base_font.render(user_text, True, (43, 31, 216))
         #textRect = text_surface.get_rect()
         #textRect.center(550, 300)
         SCREEN.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
@@ -307,17 +312,17 @@ def menu(death_count):
             SCREEN.blit(background_2,(0,0))
             #font1 = pygame.font.Font('freesansbold.ttf',115)
             #text = font1.render('T-REX', True, black)
-            largetext=pygame.font.Font('freesansbold.ttf',115)
+            largetext=pygame.font.Font('freesansbold.ttf',100)
             text = largetext.render('T-REX', True, (59, 48, 49))
             text_rect = largetext.render('T-REX', True, (59, 48, 49))
             textRect = text_rect.get_rect()
             #text,textRect=text_objects("T-REX",largetext)
-            textRect.center=((550),(300))
-            SCREEN.blit(text,textRect)
-            button("START",300,470,100,50,green,bright_green,"play")
-            button("QUIT",700,470,100,50,red,bright_red,"quit")
-            button("INSTRUCTION",450,470,200,50,yellow,bright_yellow,"intro")
-            button("CREATE NAME", 450, 390, 200, 50, gray, bright_gray, "name")
+            textRect.center=((550),(230))
+            SCREEN.blit(text_rect, textRect)
+            button("START",300,430,100,50,green,bright_green,"play")
+            button("QUIT",700,430,100,50,red,bright_red,"quit")
+            button("INSTRUCTION",450,430,200,50,yellow,bright_yellow,"intro")
+            button("CREATE NAME", 450, 350, 200, 50, dark_blue, bright_dark_blue, "name")
         elif death_count > 0:
             SCREEN.blit(end_bg,(0,0))
             text = font.render('Press any Key to restart', True, (0, 0, 0))
@@ -327,7 +332,7 @@ def menu(death_count):
             SCREEN.blit(score, scoreRect)
             
         textRect = text.get_rect()
-        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 70)
         SCREEN.blit(text, textRect)
         pygame.display.update()
         for event in pygame.event.get():
