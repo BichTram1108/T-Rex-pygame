@@ -68,17 +68,32 @@ def main():
     obstacles = []
     death_count = 0
 
+
     def score():
         global points, game_speed
+        try:
+            highestScore = int(getHighestScore())
+        except:
+            highestScore = 0
+
         points += 1
         if points % 100 == 0:
             game_speed += 1
 
-        text = font.render('Points: ' + str(points), True, (0, 0, 0))
+        text = font.render('Scores: ' + str(points), True, (0, 0, 0))
         textRect = text.get_rect()
         textRect.center = (1000, 40)
         SCREEN.blit(text, textRect)
 
+        if(highestScore < points):
+            highestScore = points
+        with open("highest score.txt","w") as f:
+            f.write(str(highestScore))
+
+        text1 = font.render('Highest Scores: ' + str(highestScore), True, red)
+        textRect = text1.get_rect()
+        textRect.center = (800, 40)
+        SCREEN.blit(text1, textRect)
 
     def background():
         global x_pos_bg, y_pos_bg
@@ -129,7 +144,7 @@ def main():
         button("Pause",50,0,150,50,blue,bright_blue,"pause")
 
         score()
-
+        
         clock.tick(30)
         pygame.display.update()
 
@@ -278,6 +293,11 @@ def create_name():
 
 
 
+def getHighestScore():
+    with open("highest score.txt","r") as f:
+        return f.read()
+
+
 def menu(death_count):
     global points
     run = True
@@ -307,7 +327,7 @@ def menu(death_count):
             
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        #SCREEN.blit(text, textRect)
+
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
