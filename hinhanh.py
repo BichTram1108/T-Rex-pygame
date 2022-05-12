@@ -47,7 +47,8 @@ CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 
 BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
 BG1 = pygame.image.load(os.path.join('picture/background','bg9.jpg'))
-BG2 = pygame.image.load(os.path.join('picture/background','bg-anime2.png'))
+BG2 = pygame.image.load(os.path.join('picture/background','anime2.png'))
+BG3 = pygame.image.load(os.path.join('picture/background','bg14.png'))
 
 background = pygame.image.load(os.path.join('./picture/background/bg6.jpg'))
 background_2 = pygame.image.load(os.path.join('./picture/background/bg_dino1.jpg'))

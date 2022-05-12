@@ -31,19 +31,19 @@ class SmallCactus (Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
-        self.rect.y = 325
+        self.rect.y = 425
 
 class LargeCactus (Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
-        self.rect.y = 300
+        self.rect.y = 400
 
 class Bird (Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 250
+        self.rect.y = 350
         self.index = 0
 
     def draw(self, SCREEN):
@@ -62,7 +62,7 @@ def main():
     cloud = Cloud()
     game_speed = 14
     x_pos_bg = 0
-    y_pos_bg = 380
+    y_pos_bg = 480
     points = 0
     font = pygame.font .Font("freesansbold.ttf",20)
     obstacles = []
@@ -120,7 +120,7 @@ def main():
         pause=True
         
         if points < 100:
-            SCREEN.fill((255,255,255))
+            SCREEN.blit(BG3,(0,0))
         
         if points > 100 and points < 200:
             SCREEN.blit(BG1,(0,0))
@@ -154,7 +154,7 @@ def main():
 
         cloud.draw(SCREEN)
         cloud.update()
-        button("Pause",50,0,150,50,orange,bright_orange,"pause")
+        button("Pause",50,25,150,50,orange,bright_orange,"pause")
         
         score()
 
