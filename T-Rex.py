@@ -411,9 +411,9 @@ def scoreboard():
         mediumtext=pygame.font.Font('freesansbold.ttf',40)
         TextSurf,TextRect=text_objects("SCOREBOARD",largetext)
         TextRect.center=((550),(100))
-        SCREEN.blit(TextSurf,TextRect)
+        SCREEN.blit(TextSurf,TextRect) 
     
-        #list = []
+        #list = []v
         #list.append(getScoreboard())
 
         with open("scoreboard.txt","r") as f:
