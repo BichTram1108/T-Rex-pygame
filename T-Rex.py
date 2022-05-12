@@ -436,9 +436,6 @@ def scoreboard():
         pygame.display.update()
         clock.tick(30)
     
-def getScoreboard():
-    with open("scoreboard.txt","r") as f:
-        return f.read()
 
 def getHighestScore():
     with open("highest score.txt","r") as f:
@@ -448,6 +445,7 @@ def getHighestScore():
 def menu(death_count):
     global points
     run = True
+    name = getCreateName()
     while run:
         SCREEN.fill((255, 255, 255))
         font = pygame.font.Font('freesansbold.ttf', 30)
@@ -485,7 +483,8 @@ def menu(death_count):
                 run = False
             if event.type == pygame.KEYDOWN:
                 main()
-
+    with open("scoreboard.txt","a+") as f:
+            f.writelines("{} {} ".format(name,str(points)))
     pygame.quit()
 
 menu(death_count=0)
