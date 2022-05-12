@@ -1,4 +1,5 @@
 #from numpy import true_divide
+from tkinter.font import BOLD
 import pygame
 import os
 import random
@@ -67,7 +68,7 @@ def main():
     font = pygame.font .Font("freesansbold.ttf",20)
     obstacles = []
     death_count = 0
-    create_name = True
+    
 
     def score():
         global points, game_speed
@@ -95,6 +96,24 @@ def main():
         textRect.center = (800, 40)
         SCREEN.blit(text1, textRect)
 
+    # def name():
+    #     global first_name
+    #     first_name = 'Player'
+    #     try:
+    #         Name = getCreateName()
+    #     except:
+    #         Name = 'Player'
+        
+    #     if(Name != first_name):
+    #         Name = first_name
+    #     with open("highest score.txt","w") as f:
+    #         f.write(str(Name))
+
+    #     text1 = font.render('Name: ' + Name, True, red)
+    #     textRect = text1.get_rect()
+    #     textRect.center = (300, 40)
+    #     SCREEN.blit(text1, textRect)
+
     def background():
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
@@ -105,10 +124,7 @@ def main():
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
-    text1 = font.render( create_name(), True, red)
-    textRect = text1.get_rect()
-    textRect.center = (800, 40)
-    SCREEN.blit(text1, textRect)
+    
 
     while run:
         
@@ -118,7 +134,6 @@ def main():
         
         pause=True
         
-
         SCREEN.fill((255,255,255))
         userInput = pygame.key.get_pressed()
         
@@ -149,7 +164,13 @@ def main():
         button("Pause",50,0,150,50,blue,bright_blue,"pause")
         
         score()
-        
+
+        name = getCreateName()
+        text = font.render('Name: ' + str(name), True, orange)
+        textRect = text.get_rect()
+        textRect.center = (400, 40)
+        SCREEN.blit(text, textRect)
+
         clock.tick(30)
         pygame.display.update()
 
@@ -266,12 +287,12 @@ def create_name():
                     else:
                         user_text += event.unicode
 
-        SCREEN.blit(background,(0,0))
+        SCREEN.blit(background_name,(0,0))
         largetext=pygame.font.Font('freesansbold.ttf',60)
         #smalltext=pygame.font.Font('freesansbold.ttf',20)
         mediumtext=pygame.font.Font('freesansbold.ttf',40)
-        
-        
+    
+
         textSurf,textRect=text_objects("What are your name?",mediumtext)
         textRect.center=((550),(230))
         TextSurf,TextRect=text_objects("CREATE TO NAME GAME!",largetext)
@@ -280,21 +301,33 @@ def create_name():
         SCREEN.blit(textSurf,textRect)
 
 
+
         pygame.draw.rect(SCREEN, color, input_rect, 2)
+        
 
         text_surface = base_font.render(user_text, True, (43, 31, 216))
         #textRect = text_surface.get_rect()
-        #textRect.center(550, 300)
+        #textRect.center((550), (300))
         SCREEN.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
 
         input_rect.w = max(200, text_surface.get_width() + 10)
 
+        
+
+        with open("create name.txt","w") as f:
+            f.write(str(user_text))
+
         button("OK",800,520,200,50,red,bright_red,"play")
         button("BACK",100,520,200,50,green,bright_green,"menu")
         pygame.display.flip()
+        #pygame.display.update()
         clock.tick(60)
+    
 
-
+def getCreateName():
+     with open("create name.txt","r") as f:
+        
+         return f.read()
 
 def getHighestScore():
     with open("highest score.txt","r") as f:
@@ -309,7 +342,7 @@ def menu(death_count):
         font = pygame.font.Font('freesansbold.ttf', 30)
 
         if death_count == 0:
-            SCREEN.blit(background_2,(0,0))
+            SCREEN.blit(background_menu,(0,0))
             #font1 = pygame.font.Font('freesansbold.ttf',115)
             #text = font1.render('T-REX', True, black)
             largetext=pygame.font.Font('freesansbold.ttf',100)

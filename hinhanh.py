@@ -16,6 +16,7 @@ yellow = (255,255,0)
 bright_yellow = (255,250,179)
 dark_blue = (0,178,191)
 bright_dark_blue = (0,146,152)
+orange = (255, 165, 0)
 pause=False
 clock = pygame.time.Clock()
 SCREEN_HEIGHT = 600
@@ -46,6 +47,7 @@ CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
 
 background = pygame.image.load(os.path.join('./picture/background/bg6.jpg'))
-background_2 = pygame.image.load(os.path.join('./picture/background/bg_dino1.jpg'))
+background_menu = pygame.image.load(os.path.join('./picture/background/bg_dino1.jpg'))
+background_name = pygame.image.load(os.path.join('./picture/background/bgdino1.jpg'))
 intro_bg = pygame.image.load(os.path.join('./picture/background/bg-anime5.jpg'))
 end_bg = pygame.image.load(os.path.join('./picture/background/dino.jpg'))
