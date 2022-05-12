@@ -27,9 +27,6 @@ class Obstacle:
         if self.rect.x < -self.rect.width:
             obstacles.pop()
         
-            
-            
-
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)        
 
@@ -38,6 +35,7 @@ class Obstacle:
 
 class SmallCactus (Obstacle):
     """Lớp các chướng ngại vật nhỏ (xương rồng)"""
+
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
@@ -45,6 +43,7 @@ class SmallCactus (Obstacle):
 
 class LargeCactus (Obstacle):
     """Lớp các chướng ngại vật lớn (xương rồng)"""
+
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
@@ -52,6 +51,7 @@ class LargeCactus (Obstacle):
 
 class Bird (Obstacle):
     """Lớp chướng ngại vật (chim)"""
+
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
@@ -66,6 +66,7 @@ class Bird (Obstacle):
 
 def main():
     """Hàm thực thi chương trình"""
+
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles
     global pause
     run = True
@@ -85,6 +86,7 @@ def main():
 
     def score():
         """Hàm tính điểm"""
+
         global points, game_speed
         try:
             highestScore = int(getHighestScore())
@@ -112,6 +114,7 @@ def main():
 
     def background():
         """Hàm tạo ra background đường đi cho level 1, 2"""
+
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
         SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
@@ -123,6 +126,7 @@ def main():
 
     def background2():
         """Hàm tạo ra background đường đi cho level 3"""
+
         global x_pos_bg, y_pos_bg
         image_width = BG_NEN.get_width()
         SCREEN.blit(BG_NEN, (x_pos_bg, y_pos_bg))
@@ -134,7 +138,6 @@ def main():
 
     pygame.mixer.Sound.play(sound1)
     while run:
-        
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -154,8 +157,7 @@ def main():
             background()
             player2.draw(SCREEN)
             player2.update(userInput)
-        
-
+    
         if points > 400 and points <= 600:
             SCREEN.blit(BG2,(0,0))
             background2()
@@ -182,20 +184,12 @@ def main():
                 pygame.time.delay(2000)
                 death_count += 1
                 menu(death_count)
-                
-
-        
-
 
         name = getCreateName()
         text = font.render('Name: ' + str(name), True, pink)
         textRect = text.get_rect()
         textRect.center = (400, 40)
         SCREEN.blit(text, textRect)
-
-        button("Pause",50,25,150,50,orange,bright_orange,"pause")
-        
-        score()
 
         if level ==1 and points == 200 :
             level += 1
@@ -224,19 +218,24 @@ def main():
             button("BACK",800,520,200,50,red,bright_orange,"menu")
             pygame.time.delay(1)
             
+        button("Pause",50,25,150,50,orange,bright_orange,"pause")
+        score()
 
         clock.tick(30)
         pygame.display.update()
 
 def text_objects(text,font):
     """Hàm xây dựng các text thông thường"""
+
     textsurface=font.render(text,True,black)
     return textsurface,textsurface.get_rect()
 
 def button(msg,x,y,w,h,ic,ac,action=None):
     """Hàm xây dựng các nút"""
+
     mouse=pygame.mouse.get_pos()
     click=pygame.mouse.get_pressed()
+
     if x+w>mouse[0]>x and y+h>mouse[1]>y:
         pygame.draw.rect(SCREEN,ac,(x,y,w,h))
         if click[0]==1 and action!=None:
@@ -260,6 +259,7 @@ def button(msg,x,y,w,h,ic,ac,action=None):
                 scoreboard()
     else:
         pygame.draw.rect(SCREEN,ic,(x,y,w,h))
+
     smalltext=pygame.font.Font("freesansbold.ttf",20)
     textsurf,textrect=text_objects(msg,smalltext)
     textrect.center=((x+(w/2)),(y+(h/2)))
@@ -267,6 +267,7 @@ def button(msg,x,y,w,h,ic,ac,action=None):
 
 def paused():
     """Hàm dừng khi đang thực thi chương trình"""
+
     global pause
 
     while pause:
@@ -275,6 +276,7 @@ def paused():
                     pygame.quit()
                     quit()
                     sys.exit()
+
             SCREEN.blit(background,(0,0))
             largetext=pygame.font.Font('freesansbold.ttf',115)
             TextSurf,TextRect=text_objects("PAUSED",largetext)
@@ -292,6 +294,7 @@ def unpaused():
 
 def introduction():
     """Hàm hướng dẫn người chơi"""
+
     introduction=True
     while introduction:
         for event in pygame.event.get():
@@ -299,6 +302,7 @@ def introduction():
                 pygame.quit()
                 quit()
                 sys.exit()
+
         SCREEN.blit(intro_bg,(0,0))
         largetext=pygame.font.Font('freesansbold.ttf',80)
         smalltext=pygame.font.Font('freesansbold.ttf',20)
@@ -333,19 +337,19 @@ def introduction():
         SCREEN.blit(ftextSurf,ftextRect)
         SCREEN.blit(ktextSurf,ktextRect)
         SCREEN.blit(ltextSurf,ltextRect)
+
         button("BACK",800,520,200,50,red,bright_red,"menu")
         pygame.display.update()
         clock.tick(30)
 
 def create_name():
     """Hàm cho phép người dùng nhập tên"""
-    create_name = True
 
+    create_name = True
     input_rect = pygame.Rect(440, 300, 160, 40)
     color= pygame.Color(43, 31, 216)
     base_font = pygame.font.Font('freesansbold.ttf', 32)
     user_text = ''
-
 
     while create_name:
         for event in pygame.event.get():
@@ -365,7 +369,6 @@ def create_name():
         #smalltext=pygame.font.Font('freesansbold.ttf',20)
         mediumtext=pygame.font.Font('freesansbold.ttf',40)
     
-
         textSurf,textRect=text_objects("What are your name?",mediumtext)
         textRect.center=((550),(230))
         TextSurf,TextRect=text_objects("CREATE TO NAME GAME!",largetext)
@@ -373,11 +376,8 @@ def create_name():
         SCREEN.blit(TextSurf,TextRect)
         SCREEN.blit(textSurf,textRect)
 
-
-
         pygame.draw.rect(SCREEN, color, input_rect, 2)
         
-
         text_surface = base_font.render(user_text, True, (43, 31, 216))
         #textRect = text_surface.get_rect()
         #textRect.center((550), (300))
@@ -385,25 +385,23 @@ def create_name():
 
         input_rect.w = max(200, text_surface.get_width() + 10)
 
-        
-
         with open("create name.txt","w") as f:
             f.write(str(user_text))
 
         button("OK",800,520,200,50,red,bright_red,"play")
         button("BACK",100,520,200,50,green,bright_green,"menu")
         pygame.display.flip()
-        #pygame.display.update()
         clock.tick(60)
     
-
 def getCreateName():
     """Hàm đọc tên khi người dùng nhập"""
+
     with open("create name.txt","r") as f:
         return f.read()
 
 def scoreboard():
     """Hàm xây dựng bảng xếp hạng"""
+
     scoreboard=True
     font = pygame.font .Font("freesansbold.ttf",40)
     i = 0
@@ -440,15 +438,18 @@ def scoreboard():
 
 def getHighestScore():
     """Hàm đọc điểm cao nhất"""
+
     with open("highest score.txt","r") as f:
         return f.read()
 
 
 def menu(death_count):
     """Hàm menu và kết thúc"""
+
     global points
     run = True
     name = getCreateName()
+
     while run:
         SCREEN.fill((255, 255, 255))
         font = pygame.font.Font('freesansbold.ttf', 30)
@@ -469,6 +470,7 @@ def menu(death_count):
             button("INSTRUCTION",350,430,200,50,yellow,bright_yellow,"intro")
             button("SCOREBOARD",600,430,200,50,orange,bright_orange,"scoreboard")
             button("CREATE NAME", 450, 350, 200, 50, dark_blue, bright_dark_blue, "name")
+
         elif death_count > 0:
             SCREEN.blit(end_bg,(0,0))
             text = font.render('Press any Key to restart', True, (0, 0, 0))
@@ -481,11 +483,13 @@ def menu(death_count):
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 70)
         SCREEN.blit(text, textRect)
         pygame.display.update()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.KEYDOWN:
                 main()
+
     with open("scoreboard.txt","a+") as f:
             f.writelines("{} {} ".format(name,str(points)))
     pygame.quit()

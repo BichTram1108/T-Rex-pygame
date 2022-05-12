@@ -23,6 +23,7 @@ pink = (197,0,35)
 pause=False
 clock = pygame.time.Clock()
 pygame.mixer.init()
+
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -41,7 +42,6 @@ RUNNING_2 = [pygame.image.load(os.path.join("picture/Dino", "Dinosaur5.png")),
 JUMPING_2 = pygame.image.load(os.path.join('picture/Dino', 'Dinosaur4.png'))
 
 
-
 RUNNING_3 = [pygame.image.load(os.path.join("picture/Dino", "DinoChibi.png")), 
             pygame.image.load(os.path.join("picture/Dino", "DinoChibi8.png")),
             pygame.image.load(os.path.join("picture/Dino", "DinoChibi5.png")),
@@ -51,7 +51,6 @@ RUNNING_3 = [pygame.image.load(os.path.join("picture/Dino", "DinoChibi.png")),
             pygame.image.load(os.path.join("picture/Dino", "DinoChibi4.png"))]
 
 JUMPING_3 = pygame.image.load(os.path.join('picture/Dino', 'DinoChibiJump.png'))
-
 
 
 SMALL_CACTUS = [pygame.image.load(os.path.join("picture/Cactus", "SmallCactus1.png")), 
