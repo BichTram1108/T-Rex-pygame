@@ -80,6 +80,7 @@ background_menu = pygame.image.load(os.path.join('./picture/background/bg_dino1.
 background_name = pygame.image.load(os.path.join('./picture/background/bgdino1.jpg'))
 intro_bg = pygame.image.load(os.path.join('./picture/background/bg-anime5.jpg'))
 end_bg = pygame.image.load(os.path.join('./picture/background/dino.jpg'))
+score_bg = pygame.image.load(os.path.join('./picture/background/bg8.jpg'))
 
 FINISH = pygame.image.load("./picture/background/dino1.jpg")
 
