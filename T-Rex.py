@@ -119,8 +119,15 @@ def main():
         
         pause=True
         
+        if points < 100:
+            SCREEN.fill((255,255,255))
+        
+        if points > 100 and points < 200:
+            SCREEN.blit(BG1,(0,0))
 
-        SCREEN.fill((255,255,255))
+        if points > 200 and points <= 300:
+            SCREEN.blit(BG2,(0,0))
+
         userInput = pygame.key.get_pressed()
         
         player.draw(SCREEN)
@@ -162,7 +169,7 @@ def main():
             if level == 4 :
                 death_count += 2
         
-        text2 = font.render('Level: ' + str(level), True, red)
+        text2 = font.render('Level: ' + str(level), True, bright_dark_blue)
         textRect = text2.get_rect()
         textRect.center = (600, 40)
         SCREEN.blit(text2, textRect)
