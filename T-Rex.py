@@ -64,7 +64,6 @@ class Bird (Obstacle):
         SCREEN.blit(self.image[self.index//5], self.rect)
         self.index += 1
 
-
 def main():
     """Hàm thực thi chương trình"""
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles
