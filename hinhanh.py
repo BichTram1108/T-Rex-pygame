@@ -19,6 +19,7 @@ bright_yellow = (255,250,179)
 dark_blue = (0,178,191)
 bright_dark_blue = (0,146,152)
 orange = (255, 165, 0)
+pink = (197,0,35)
 pause=False
 clock = pygame.time.Clock()
 SCREEN_HEIGHT = 600
