@@ -438,10 +438,6 @@ def scoreboard():
         pygame.display.update()
         clock.tick(30)
     
-def getScoreboard():
-    """Hàm đọc bảng xếp hạng"""
-    with open("scoreboard.txt","r") as f:
-        return f.read()
 
 def getHighestScore():
     """Hàm đọc điểm cao nhất"""
@@ -453,6 +449,7 @@ def menu(death_count):
     """Hàm menu và kết thúc"""
     global points
     run = True
+    name = getCreateName()
     while run:
         SCREEN.fill((255, 255, 255))
         font = pygame.font.Font('freesansbold.ttf', 30)
@@ -490,7 +487,8 @@ def menu(death_count):
                 run = False
             if event.type == pygame.KEYDOWN:
                 main()
-
+    with open("scoreboard.txt","a+") as f:
+            f.writelines("{} {} ".format(name,str(points)))
     pygame.quit()
 
 menu(death_count=0)
