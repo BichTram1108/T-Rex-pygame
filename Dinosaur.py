@@ -1,7 +1,7 @@
 import pygame
 import os
 import random
-from game2.pygame21 import OBSTACLES
+
 from hinhanh import *
 
 pygame.init()

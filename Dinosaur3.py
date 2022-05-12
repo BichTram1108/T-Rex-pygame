@@ -1,7 +1,7 @@
 import pygame
 import os
 import random
-from game2.pygame21 import OBSTACLES
+
 from hinhanh import *
 
 pygame.init()
@@ -42,7 +42,7 @@ class Dinosaur3:
             self.dino_run = True
             self.dino_jump = False
             self.dino_duck = False 
-            
+
     def run(self):
         self.image = self.run_img[self.step_index // 5]
         self.dino_rect = self.image.get_rect()
