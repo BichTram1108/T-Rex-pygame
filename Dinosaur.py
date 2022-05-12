@@ -7,6 +7,7 @@ from hinhanh import *
 pygame.init()
 
 class Dinosaur:
+    """Lớp khủng long cơ bản thuộc level 1"""
     X_POS = 80
     Y_POS = 350
     Y_POS_DUCK = 440

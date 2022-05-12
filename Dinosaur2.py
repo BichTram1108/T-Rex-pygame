@@ -7,6 +7,7 @@ from hinhanh import *
 pygame.init()
 
 class Dinosaur2:
+    """Lớp khủng long nâng cấp thuộc level 2"""
     X_POS = 80
     Y_POS = 300
     JUMP_VEL = 8.5

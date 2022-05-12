@@ -14,6 +14,7 @@ from Cloud import *
 pygame.mixer.init()
 pygame.init()
 class Obstacle:
+    """Lớp chướng ngại vật"""
     
     def __init__(self, image, type):
         self.image = image
@@ -30,37 +31,27 @@ class Obstacle:
             
 
     def draw(self, SCREEN):
-        SCREEN.blit(self.image[self.type], self.rect)
-class Cactus:
-    def __init__(self, image):
-        self.image = CACTUS
-        self.rect = self.image.get_rect()
-        self.rect.x = SCREEN_WIDTH
-
-    def update(self):
-        self.rect.x -= game_speed
-        if self.rect.x < -self.rect.width:
-            obstacles.pop()
-        
-            
-            
+        SCREEN.blit(self.image[self.type], self.rect)        
 
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
 
 class SmallCactus (Obstacle):
+    """Lớp các chướng ngại vật nhỏ (xương rồng)"""
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 430
 
 class LargeCactus (Obstacle):
+    """Lớp các chướng ngại vật lớn (xương rồng)"""
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 400
 
 class Bird (Obstacle):
+    """Lớp chướng ngại vật (chim)"""
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
@@ -75,6 +66,7 @@ class Bird (Obstacle):
 
 
 def main():
+    """Hàm thực thi chương trình"""
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles
     global pause
     run = True
@@ -93,6 +85,7 @@ def main():
     level = 1
 
     def score():
+        """Hàm tính điểm"""
         global points, game_speed
         try:
             highestScore = int(getHighestScore())
@@ -119,6 +112,7 @@ def main():
         SCREEN.blit(text1, textRect)
 
     def background():
+        """Hàm tạo ra background đường đi cho level 1, 2"""
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
         SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
@@ -129,6 +123,7 @@ def main():
         x_pos_bg -= game_speed
 
     def background2():
+        """Hàm tạo ra background đường đi cho level 3"""
         global x_pos_bg, y_pos_bg
         image_width = BG_NEN.get_width()
         SCREEN.blit(BG_NEN, (x_pos_bg, y_pos_bg))
@@ -235,10 +230,12 @@ def main():
         pygame.display.update()
 
 def text_objects(text,font):
+    """Hàm xây dựng các text thông thường"""
     textsurface=font.render(text,True,black)
     return textsurface,textsurface.get_rect()
 
 def button(msg,x,y,w,h,ic,ac,action=None):
+    """Hàm xây dựng các nút"""
     mouse=pygame.mouse.get_pos()
     click=pygame.mouse.get_pressed()
     if x+w>mouse[0]>x and y+h>mouse[1]>y:
@@ -270,6 +267,7 @@ def button(msg,x,y,w,h,ic,ac,action=None):
     SCREEN.blit(textsurf,textrect)
 
 def paused():
+    """Hàm dừng khi đang thực thi chương trình"""
     global pause
 
     while pause:
@@ -294,6 +292,7 @@ def unpaused():
     pause=False
 
 def introduction():
+    """Hàm hướng dẫn người chơi"""
     introduction=True
     while introduction:
         for event in pygame.event.get():
@@ -340,6 +339,7 @@ def introduction():
         clock.tick(30)
 
 def create_name():
+    """Hàm cho phép người dùng nhập tên"""
     create_name = True
 
     input_rect = pygame.Rect(440, 300, 160, 40)
@@ -399,10 +399,12 @@ def create_name():
     
 
 def getCreateName():
-     with open("create name.txt","r") as f:
-         return f.read()
+    """Hàm đọc tên khi người dùng nhập"""
+    with open("create name.txt","r") as f:
+        return f.read()
 
 def scoreboard():
+    """Hàm xây dựng bảng xếp hạng"""
     scoreboard=True
     font = pygame.font .Font("freesansbold.ttf",40)
     i = 0
@@ -437,15 +439,18 @@ def scoreboard():
         clock.tick(30)
     
 def getScoreboard():
+    """Hàm đọc bảng xếp hạng"""
     with open("scoreboard.txt","r") as f:
         return f.read()
 
 def getHighestScore():
+    """Hàm đọc điểm cao nhất"""
     with open("highest score.txt","r") as f:
         return f.read()
 
 
 def menu(death_count):
+    """Hàm menu và kết thúc"""
     global points
     run = True
     while run:
