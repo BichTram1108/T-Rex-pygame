@@ -229,16 +229,11 @@ def main():
             
             button("BACK",800,520,200,50,red,bright_orange,"menu")
             pygame.time.delay(1)
-
-        
-
             
+
         clock.tick(30)
         pygame.display.update()
-        
-        
-        
-        
+
 def text_objects(text,font):
     textsurface=font.render(text,True,black)
     return textsurface,textsurface.get_rect()
@@ -265,8 +260,6 @@ def button(msg,x,y,w,h,ic,ac,action=None):
                 unpaused()
             elif action == "name":
                 create_name()
-            elif action == "scoreboard":
-                scoreboard()
     else:
         pygame.draw.rect(SCREEN,ic,(x,y,w,h))
     smalltext=pygame.font.Font("freesansbold.ttf",20)
@@ -379,6 +372,7 @@ def create_name():
 
         input_rect.w = max(200, text_surface.get_width() + 10)
 
+        
 
         with open("create name.txt","w") as f:
             f.write(str(user_text))
@@ -440,7 +434,6 @@ def getHighestScore():
 def menu(death_count):
     global points
     run = True
-    name = getCreateName()
     while run:
         SCREEN.fill((255, 255, 255))
         font = pygame.font.Font('freesansbold.ttf', 30)
@@ -456,10 +449,9 @@ def menu(death_count):
             #text,textRect=text_objects("T-REX",largetext)
             textRect.center=((550),(230))
             SCREEN.blit(text_rect, textRect)
-            button("START",200,430,100,50,green,bright_green,"play")
-            button("QUIT",850,430,100,50,red,bright_red,"quit")
-            button("INSTRUCTION",350,430,200,50,yellow,bright_yellow,"intro")
-            button("SCOREBOARD",600,430,200,50,orange,bright_orange,"scoreboard")
+            button("START",300,430,100,50,green,bright_green,"play")
+            button("QUIT",700,430,100,50,red,bright_red,"quit")
+            button("INSTRUCTION",450,430,200,50,yellow,bright_yellow,"intro")
             button("CREATE NAME", 450, 350, 200, 50, dark_blue, bright_dark_blue, "name")
         elif death_count > 0:
             SCREEN.blit(end_bg,(0,0))
@@ -468,7 +460,6 @@ def menu(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
-        
             
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 70)
@@ -479,9 +470,7 @@ def menu(death_count):
                 run = False
             if event.type == pygame.KEYDOWN:
                 main()
-    with open("scoreboard.txt","a+") as f:
-            f.writelines("{} {} ".format(name,str(points)))
-            
+
     pygame.quit()
 
 menu(death_count=0)
