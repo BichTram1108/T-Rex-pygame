@@ -32,19 +32,19 @@ class SmallCactus (Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
-        self.rect.y = 325
+        self.rect.y = 425
 
 class LargeCactus (Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
-        self.rect.y = 300
+        self.rect.y = 400
 
 class Bird (Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 250
+        self.rect.y = 350
         self.index = 0
 
     def draw(self, SCREEN):
@@ -63,12 +63,13 @@ def main():
     cloud = Cloud()
     game_speed = 14
     x_pos_bg = 0
-    y_pos_bg = 380
+    y_pos_bg = 480
     points = 0
     font = pygame.font .Font("freesansbold.ttf",20)
     obstacles = []
     death_count = 0
-    
+    level = 1
+    #create_name = True
 
     def score():
         global points, game_speed
@@ -124,7 +125,10 @@ def main():
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
-    
+    #text1 = font.render( create_name(), True, red)
+    #textRect = text1.get_rect()
+    #textRect.center = (800, 40)
+    #SCREEN.blit(text1, textRect)
 
     while run:
         
@@ -134,7 +138,15 @@ def main():
         
         pause=True
         
-        SCREEN.fill((255,255,255))
+        if points < 100:
+            SCREEN.blit(BG3,(0,0))
+        
+        if points > 100 and points < 200:
+            SCREEN.blit(BG1,(0,0))
+
+        if points > 200 and points <= 300:
+            SCREEN.blit(BG2,(0,0))
+
         userInput = pygame.key.get_pressed()
         
         player.draw(SCREEN)
@@ -161,15 +173,44 @@ def main():
 
         cloud.draw(SCREEN)
         cloud.update()
-        button("Pause",50,0,150,50,blue,bright_blue,"pause")
-        
-        score()
 
         name = getCreateName()
-        text = font.render('Name: ' + str(name), True, orange)
+        text = font.render('Name: ' + str(name), True, pink)
         textRect = text.get_rect()
         textRect.center = (400, 40)
         SCREEN.blit(text, textRect)
+
+        button("Pause",50,25,150,50,orange,bright_orange,"pause")
+        
+        score()
+
+        if level ==1 and points == 100 :
+            level += 1
+            
+        elif level ==2 and points == 200:
+            level +=1
+
+        elif level == 3 and points == 300:
+            level +=1 
+            if level == 4 :
+                death_count += 2
+        
+        text2 = font.render('Level: ' + str(level), True, bright_dark_blue)
+        textRect = text2.get_rect()
+        textRect.center = (600, 40)
+        SCREEN.blit(text2, textRect)
+
+        if death_count == 2:
+            
+            SCREEN.blit(FINISH,(0,0))
+            largetext=pygame.font.Font('freesansbold.ttf',85)
+            TextSurf,TextRect=text_objects("You won the game!",largetext)
+            TextRect.center=((550),(100))
+            SCREEN.blit(TextSurf,TextRect)
+            
+            button("BACK",800,520,200,50,red,bright_orange,"menu")
+            pygame.time.delay(1)
+            
 
         clock.tick(30)
         pygame.display.update()

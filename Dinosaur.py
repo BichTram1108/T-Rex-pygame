@@ -8,8 +8,8 @@ pygame.init()
 
 class Dinosaur:
     X_POS = 80
-    Y_POS = 310
-    Y_POS_DUCK = 340
+    Y_POS = 400
+    Y_POS_DUCK = 440
     JUMP_VEL = 8.5
 
     def __init__(self):

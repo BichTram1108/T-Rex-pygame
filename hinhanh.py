@@ -9,6 +9,8 @@ black=(0,0,0)
 red=(255,0,0)
 green=(0,200,0)
 blue=(0,0,200)
+orange = (255,165,0)
+bright_orange = (255, 160, 0)
 bright_red=(255,0,0)
 bright_green=(0,255,0)
 bright_blue=(0,0,255)
@@ -45,9 +47,14 @@ BIRD = [pygame.image.load(os.path.join("picture/Bird", "Bird1.png")),
 CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 
 BG = pygame.image.load(os.path.join('picture/Other', 'Track.png'))
+BG1 = pygame.image.load(os.path.join('picture/background','bg9.jpg'))
+BG2 = pygame.image.load(os.path.join('picture/background','anime2.png'))
+BG3 = pygame.image.load(os.path.join('picture/background','bg14.png'))
 
 background = pygame.image.load(os.path.join('./picture/background/bg6.jpg'))
 background_menu = pygame.image.load(os.path.join('./picture/background/bg_dino1.jpg'))
 background_name = pygame.image.load(os.path.join('./picture/background/bgdino1.jpg'))
 intro_bg = pygame.image.load(os.path.join('./picture/background/bg-anime5.jpg'))
 end_bg = pygame.image.load(os.path.join('./picture/background/dino.jpg'))
+
+FINISH = pygame.image.load("./picture/background/dino1.jpg")
