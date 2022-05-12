@@ -1,13 +1,17 @@
 #from numpy import true_divide
+from lib2to3.pygram import python_grammar_no_print_statement
 from tkinter.font import BOLD
 import pygame
 import os
 import random
 from hinhanh import *
 from Dinosaur import *
+from Dinosaur2 import *
+from Dinosaur3 import *
 from Cloud import *
 
 
+pygame.mixer.init()
 pygame.init()
 class Obstacle:
     
@@ -27,12 +31,28 @@ class Obstacle:
 
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
+class Cactus:
+    def __init__(self, image):
+        self.image = CACTUS
+        self.rect = self.image.get_rect()
+        self.rect.x = SCREEN_WIDTH
+
+    def update(self):
+        self.rect.x -= game_speed
+        if self.rect.x < -self.rect.width:
+            obstacles.pop()
+        
+            
+            
+
+    def draw(self, SCREEN):
+        SCREEN.blit(self.image[self.type], self.rect)
 
 class SmallCactus (Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
-        self.rect.y = 425
+        self.rect.y = 430
 
 class LargeCactus (Obstacle):
     def __init__(self, image):
@@ -60,17 +80,17 @@ def main():
     run = True
     clock = pygame.time.Clock()
     player = Dinosaur()
+    player2 = Dinosaur2()
+    player3 = Dinosaur3() 
     cloud = Cloud()
     game_speed = 14
     x_pos_bg = 0
-    y_pos_bg = 480
+    y_pos_bg = 490
     points = 0
     font = pygame.font .Font("freesansbold.ttf",20)
     obstacles = []
     death_count = 0
     level = 1
-    
-    #create_name = True
 
     def score():
         global points, game_speed
@@ -98,24 +118,6 @@ def main():
         textRect.center = (800, 40)
         SCREEN.blit(text1, textRect)
 
-    # def name():
-    #     global first_name
-    #     first_name = 'Player'
-    #     try:
-    #         Name = getCreateName()
-    #     except:
-    #         Name = 'Player'
-        
-    #     if(Name != first_name):
-    #         Name = first_name
-    #     with open("highest score.txt","w") as f:
-    #         f.write(str(Name))
-
-    #     text1 = font.render('Name: ' + Name, True, red)
-    #     textRect = text1.get_rect()
-    #     textRect.center = (300, 40)
-    #     SCREEN.blit(text1, textRect)
-
     def background():
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
@@ -126,33 +128,49 @@ def main():
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
-    #text1 = font.render( create_name(), True, red)
-    #textRect = text1.get_rect()
-    #textRect.center = (800, 40)
-    #SCREEN.blit(text1, textRect)
+    def background2():
+        global x_pos_bg, y_pos_bg
+        image_width = BG_NEN.get_width()
+        SCREEN.blit(BG_NEN, (x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG_NEN, (image_width + x_pos_bg, y_pos_bg))
+        if x_pos_bg <= -image_width:
+            SCREEN.blit(BG_NEN, (image_width + x_pos_bg, y_pos_bg))
+            x_pos_bg = 0
+        x_pos_bg -= game_speed
 
+    pygame.mixer.Sound.play(sound1)
     while run:
+        
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
         
         pause=True
-        
-        if points < 100:
-            SCREEN.blit(BG3,(0,0))
-        
-        if points > 100 and points < 200:
-            SCREEN.blit(BG1,(0,0))
-
-        if points > 200 and points <= 300:
-            SCREEN.blit(BG2,(0,0))
-
         userInput = pygame.key.get_pressed()
         
-        player.draw(SCREEN)
-        player.update(userInput)
+        if points < 200:
+            SCREEN.blit(BG3,(0,0))
+            background()
+            player.draw(SCREEN)
+            player.update(userInput)
+        
+        if points > 200 and points < 400:
+            SCREEN.blit(BG1,(0,0))
+            background()
+            player2.draw(SCREEN)
+            player2.update(userInput)
+        
 
+        if points > 400 and points <= 600:
+            SCREEN.blit(BG2,(0,0))
+            background2()
+            player3.draw(SCREEN)
+            player3.update(userInput)
+         
+        cloud.draw(SCREEN)
+        cloud.update()
+        
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
                 obstacles.append(SmallCactus(SMALL_CACTUS))
@@ -160,20 +178,20 @@ def main():
                 obstacles.append(LargeCactus(LARGE_CACTUS))
             elif random.randint(0, 2) == 2:
                 obstacles.append(Bird(BIRD))
-
+    
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
             obstacle.update()
-            if player.dino_rect.colliderect(obstacle.rect):
+            if player.dino_rect.colliderect(obstacle.rect) and player2.dino_rect.colliderect(obstacle.rect) and player3.dino_rect.colliderect(obstacle.rect):
                 #pygame.draw.rect(SCREEN, (255, 0, 0), player.dino_rect, 2)
+                pygame.mixer.Sound.play(sound2)
                 pygame.time.delay(2000)
                 death_count += 1
                 menu(death_count)
+                
 
-        background()
+        
 
-        cloud.draw(SCREEN)
-        cloud.update()
 
         name = getCreateName()
         text = font.render('Name: ' + str(name), True, pink)
@@ -185,13 +203,13 @@ def main():
         
         score()
 
-        if level ==1 and points == 100 :
+        if level ==1 and points == 200 :
             level += 1
             
-        elif level ==2 and points == 200:
+        elif level ==2 and points == 400:
             level +=1
 
-        elif level == 3 and points == 300:
+        elif level == 3 and points == 600:
             level +=1 
             if level == 4 :
                 death_count += 2
@@ -374,7 +392,6 @@ def create_name():
 
 def getCreateName():
      with open("create name.txt","r") as f:
-        
          return f.read()
 
 def scoreboard():
@@ -406,7 +423,6 @@ def scoreboard():
                 textRect = text1.get_rect()
                 textRect.center = (500, 200)
                 SCREEN.blit(text1, textRect)
-            
 
         button("BACK",100,520,200,50,green,bright_green,"menu")
         pygame.display.update()
