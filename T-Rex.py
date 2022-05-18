@@ -190,6 +190,9 @@ def main():
         textRect = text.get_rect()
         textRect.center = (400, 40)
         SCREEN.blit(text, textRect)
+            
+        button("Pause",50,25,150,50,orange,bright_orange,"pause")
+        score()
 
         if level ==1 and points == 200 :
             level += 1
@@ -209,17 +212,14 @@ def main():
 
         if death_count == 2:
             
-            SCREEN.blit(FINISH,(0,0))
-            largetext=pygame.font.Font('freesansbold.ttf',85)
-            TextSurf,TextRect=text_objects("You won the game!",largetext)
-            TextRect.center=((550),(100))
-            SCREEN.blit(TextSurf,TextRect)
+                SCREEN.blit(FINISH,(0,0))
+                largetext=pygame.font.Font('freesansbold.ttf',85)
+                TextSurf,TextRect=text_objects("You won the game!",largetext)
+                TextRect.center=((550),(100))
+                SCREEN.blit(TextSurf,TextRect)
             
-            button("BACK",800,520,200,50,red,bright_orange,"menu")
-            pygame.time.delay(1)
-            
-        button("Pause",50,25,150,50,orange,bright_orange,"pause")
-        score()
+                button("BACK",800,520,200,50,red,bright_orange,"menu")
+                pygame.time.delay(1)
 
         clock.tick(30)
         pygame.display.update()
@@ -258,7 +258,7 @@ def button(msg,x,y,w,h,ic,ac,action=None):
             elif action == "scoreboard":
                 scoreboard()
     else:
-        pygame.draw.rect(SCREEN,ic,(x,y,w,h))
+       pygame.draw.rect(SCREEN,ic,(x,y,w,h))
 
     smalltext=pygame.font.Font("freesansbold.ttf",20)
     textsurf,textrect=text_objects(msg,smalltext)
@@ -404,7 +404,7 @@ def scoreboard():
 
     scoreboard=True
     font = pygame.font .Font("freesansbold.ttf",40)
-    i = 0
+    
 
     while scoreboard:
         for event in pygame.event.get():
@@ -491,7 +491,7 @@ def menu(death_count):
                 main()
 
     with open("scoreboard.txt","a+") as f:
-            f.writelines("{} {} ".format(name,str(points)))
+            f.writelines("{} {} \n".format(name,str(points)))
     pygame.quit()
 
 menu(death_count=0)
