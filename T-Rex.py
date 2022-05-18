@@ -4,6 +4,7 @@ from tkinter.font import BOLD
 import pygame
 import os
 import random
+import re
 from hinhanh import *
 from Dinosaur import *
 from Cloud import *
@@ -414,18 +415,35 @@ def scoreboard():
         TextSurf,TextRect=text_objects("SCOREBOARD",largetext)
         TextRect.center=((550),(200))
         SCREEN.blit(TextSurf,TextRect) 
-    
-        #list = []v
-        #list.append(getScoreboard())
 
-        with open("scoreboard.txt","r") as f:
-            lines = f.readlines()
-            for line in (lines):
-                text1 = font.render(str(line), True, white)
-                textRect = text1.get_rect()
-                textRect.center = (500, 300)
-                SCREEN.blit(text1, textRect)
+        with open('bangxephang.txt', 'r') as f:
+            line = f.readline()
+            index = 0
+            r = 0
+            while line:
+                if index < 3:
+                    text1 = font.render(str(line), True, red)
+                    textRect = text1.get_rect()
+                    textRect.center = (500, 300 + r)
+                    SCREEN.blit(text1, textRect)
+                    index += 1
+                    r += 50
+                    line = f.readline()
+                else :
+                    break
 
+        with open('scoreboard.txt') as in_file:
+            all_lines = in_file.readlines()
+            lines = []
+            for line in all_lines:
+                if line.lstrip():
+                    lines.append(line)
+
+        with open('bangxephang.txt', 'w') as out_file:
+            for line in sorted(lines):
+                out_file.write(line)
+
+        
         button("BACK",800,520,200,50,red,bright_red,"menu")
         pygame.display.update()
         clock.tick(30)
@@ -487,6 +505,7 @@ def menu(death_count):
 
     with open("scoreboard.txt","a+") as f:
             f.writelines("{} {} \n".format(name,str(points)))
+    
     pygame.quit()
 
 menu(death_count=0)
