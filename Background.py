@@ -8,6 +8,7 @@ from hinhanh import *
 
 pygame.init()
 class Background_2:
+    """Lớp hình nền level 2"""
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -24,6 +25,7 @@ class Background_2:
             self.x += self.width
 
 class Background_3:
+    """lớp hình nền level 3"""
     def __init__(self):
         self.x = 0
         self.y = 0
