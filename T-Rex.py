@@ -147,7 +147,7 @@ def main():
         userInput = pygame.key.get_pressed()
         
         if points < 200:
-            SCREEN.blit(BG3,(0,0))
+            SCREEN.fill((255, 255, 245))
             background()
             player.draw(SCREEN)
             player.update(userInput)
@@ -216,7 +216,7 @@ def main():
             SCREEN.blit(TextSurf,TextRect)
             
             button("BACK",800,520,200,50,red,bright_orange,"menu")
-            pygame.time.delay(1)
+            pygame.time.delay(100)
             
         button("Pause",50,25,150,50,orange,bright_orange,"pause")
         score()
@@ -491,7 +491,7 @@ def menu(death_count):
                 main()
 
     with open("scoreboard.txt","a+") as f:
-            f.writelines("{} {} ".format(name,str(points)))
+            f.writelines("{} {} \n".format(name,str(points)))
     pygame.quit()
 
 menu(death_count=0)
