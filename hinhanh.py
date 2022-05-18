@@ -64,7 +64,21 @@ LARGE_CACTUS = [pygame.image.load(os.path.join("picture/Cactus", "LargeCactus1.p
 BIRD = [pygame.image.load(os.path.join("picture/Bird", "Bird1.png")), 
             pygame.image.load(os.path.join("picture/Bird", "Bird2.png"))]
 
-CACTUS = pygame.image.load(os.path.join('picture/background', 'cactus2.png'))
+OBSTACLE_2_1 = [pygame.image.load(os.path.join("picture/obstacle", "obstacle_2-1.jpg")), 
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_2-2.jpg")),
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_2-3.jpg"))]
+
+OBSTACLE_2_2 = [pygame.image.load(os.path.join("picture/obstacle", "obstacle_2-4.png")), 
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_2-5.png")),
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_2-6.png"))]
+
+OBSTACLE_3_1 = [pygame.image.load(os.path.join("picture/obstacle", "obstacle_3-1.png")), 
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_3-2.png")),
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_3-3.png"))]
+
+OBSTACLE_3_2 = [pygame.image.load(os.path.join("picture/obstacle", "obstacle_3-4.jpg")), 
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_3-5.png")),
+            pygame.image.load(os.path.join("picture/obstacle", "obstacle_3-6.jpg"))]
 
 CLOUD = pygame.image.load(os.path.join('picture/Other', 'Cloud.png'))
 

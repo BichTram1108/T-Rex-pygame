@@ -6,16 +6,15 @@ import os
 import random
 from hinhanh import *
 from Dinosaur import *
-from Dinosaur2 import *
-from Dinosaur3 import *
 from Cloud import *
+from Background import *
 
 
 pygame.mixer.init()
 pygame.init()
 class Obstacle:
     """Lớp chướng ngại vật"""
-    
+
     def __init__(self, image, type):
         self.image = image
         self.type = type
@@ -33,21 +32,22 @@ class Obstacle:
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
 
-class SmallCactus (Obstacle):
-    """Lớp các chướng ngại vật nhỏ (xương rồng)"""
+class Obstacle_type_1 (Obstacle):
+    """Lớp các chướng ngại vật (loại 1)"""
 
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 430
 
-class LargeCactus (Obstacle):
-    """Lớp các chướng ngại vật lớn (xương rồng)"""
+class Obstacle_type_2 (Obstacle):
+    """Lớp các chướng ngại vật (loại 2)"""
 
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 400
+
 
 class Bird (Obstacle):
     """Lớp chướng ngại vật (chim)"""
@@ -75,6 +75,8 @@ def main():
     player2 = Dinosaur2()
     player3 = Dinosaur3() 
     cloud = Cloud()
+    BG_2 = Background_2()
+    BG_3 = Background_3()
     game_speed = 14
     x_pos_bg = 0
     y_pos_bg = 490
@@ -96,13 +98,15 @@ def main():
         points += 1
         if points % 100 == 0:
             game_speed += 1
+        if points > 600:
+            points = 600
 
         text = font.render('Scores: ' + str(points), True, (0, 0, 0))
         textRect = text.get_rect()
         textRect.center = (1000, 40)
         SCREEN.blit(text, textRect)
 
-        if(highestScore < points):
+        if(highestScore < points) and (points <= 600):
             highestScore = points
         with open("highest score.txt","w") as f:
             f.write(str(highestScore))
@@ -112,7 +116,7 @@ def main():
         textRect.center = (800, 40)
         SCREEN.blit(text1, textRect)
 
-    def background():
+    def Track():
         """Hàm tạo ra background đường đi cho level 1, 2"""
 
         global x_pos_bg, y_pos_bg
@@ -124,17 +128,6 @@ def main():
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
-    def background2():
-        """Hàm tạo ra background đường đi cho level 3"""
-
-        global x_pos_bg, y_pos_bg
-        image_width = BG_NEN.get_width()
-        SCREEN.blit(BG_NEN, (x_pos_bg, y_pos_bg))
-        SCREEN.blit(BG_NEN, (image_width + x_pos_bg, y_pos_bg))
-        if x_pos_bg <= -image_width:
-            SCREEN.blit(BG_NEN, (image_width + x_pos_bg, y_pos_bg))
-            x_pos_bg = 0
-        x_pos_bg -= game_speed
 
     pygame.mixer.Sound.play(sound1)
     while run:
@@ -148,19 +141,21 @@ def main():
         
         if points < 200:
             SCREEN.fill((255, 255, 245))
-            background()
+            Track()
             player.draw(SCREEN)
             player.update(userInput)
         
         if points > 200 and points < 400:
-            SCREEN.blit(BG1,(0,0))
-            background()
+            BG_2.draw(SCREEN)
+            BG_2.update()
+            Track()
             player2.draw(SCREEN)
             player2.update(userInput)
     
         if points > 400 and points <= 600:
-            SCREEN.blit(BG2,(0,0))
-            background2()
+            BG_3.draw(SCREEN)
+            BG_3.update()
+
             player3.draw(SCREEN)
             player3.update(userInput)
          
@@ -169,9 +164,9 @@ def main():
         
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
-                obstacles.append(SmallCactus(SMALL_CACTUS))
+                obstacles.append(Obstacle_type_1(OBSTACLE_2_1))
             elif random.randint(0, 2) == 1:
-                obstacles.append(LargeCactus(LARGE_CACTUS))
+                obstacles.append(Obstacle_type_2(OBSTACLE_2_2))
             elif random.randint(0, 2) == 2:
                 obstacles.append(Bird(BIRD))
     
