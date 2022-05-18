@@ -148,7 +148,7 @@ def main():
         userInput = pygame.key.get_pressed()
         
         if points < 200:
-            SCREEN.blit(BG3,(0,0))
+            SCREEN.fill((255, 255, 245))
             background()
             player.draw(SCREEN)
             player.update(userInput)
