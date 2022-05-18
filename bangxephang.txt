@@ -1,4 +1,2 @@
-Thanh 156
-Thanh 62
-Tram 145
-Tram 81
+Thanh 147 
+Tram 298 

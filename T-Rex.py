@@ -141,12 +141,24 @@ def main():
         userInput = pygame.key.get_pressed()
         
         if points < 200:
+            if len(obstacles) == 0:
+                if random.randint(0, 2) == 0:
+                    obstacles.append(Obstacle_type_1(OBSTACLE_1_1))
+                elif random.randint(0, 2) == 1:
+                    obstacles.append(Obstacle_type_2(OBSTACLE_1_2))
+                elif random.randint(0, 2) == 2:
+                    obstacles.append(Bird(BIRD))
             SCREEN.fill((255, 255, 245))
             Track()
             player.draw(SCREEN)
             player.update(userInput)
         
         if points > 200 and points < 400:
+            if len(obstacles) == 0:
+                if random.randint(0, 1) == 0:
+                    obstacles.append(Obstacle_type_1(OBSTACLE_2_1))
+                elif random.randint(0, 1) == 1:
+                    obstacles.append(Obstacle_type_2(OBSTACLE_2_2))
             BG_2.draw(SCREEN)
             BG_2.update()
             Track()
@@ -154,6 +166,11 @@ def main():
             player2.update(userInput)
     
         if points > 400 and points <= 600:
+            if len(obstacles) == 0:
+                if random.randint(0, 1) == 0:
+                    obstacles.append(Obstacle_type_1(OBSTACLE_3_1))
+                elif random.randint(0, 1) == 1:
+                    obstacles.append(Obstacle_type_2(OBSTACLE_3_2))
             BG_3.draw(SCREEN)
             BG_3.update()
 
@@ -163,13 +180,6 @@ def main():
         cloud.draw(SCREEN)
         cloud.update()
         
-        if len(obstacles) == 0:
-            if random.randint(0, 2) == 0:
-                obstacles.append(Obstacle_type_1(OBSTACLE_2_1))
-            elif random.randint(0, 2) == 1:
-                obstacles.append(Obstacle_type_2(OBSTACLE_2_2))
-            elif random.randint(0, 2) == 2:
-                obstacles.append(Bird(BIRD))
     
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
