@@ -450,7 +450,7 @@ def scoreboard():
                     lines.append(line)
 
         with open('bangxephang.txt', 'w') as out_file:
-            for line in sorted(lines):
+            for line in sorted(lines,reverse=True):
                 out_file.write(line)
 
         
