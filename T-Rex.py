@@ -514,7 +514,7 @@ def menu(death_count):
                 main()
 
     with open("scoreboard.txt","a+") as f:
-            f.writelines("{} {} \n".format(name,str(points)))
+            f.writelines("{} {} \n".format(str(points), name))
     
     pygame.quit()
 
